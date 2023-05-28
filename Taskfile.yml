@@ -1,0 +1,12 @@
+version: '3'
+
+
+tasks:
+
+  build:
+    desc: Cargo cross build for armv7 (Raspberry Pi 4)
+    preconditions:
+    - sh: '[ "$(docker info -f {{.Architecture}})" != "x86_64" ]'
+      msg: "This has to run on Intel CPU due to the Docker image for Apple Silicon is not available"
+    cmds:
+    - cross build --release --target=armv7-unknown-linux-gnueabihf
